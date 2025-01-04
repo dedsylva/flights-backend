@@ -2,6 +2,7 @@ package com.bookyourflight.services;
 
 import com.bookyourflight.exception.FlightWithFullCapacityException;
 import com.bookyourflight.exception.NotEnoughBalanceException;
+import com.bookyourflight.models.BalanceRequest;
 import com.bookyourflight.models.Flight;
 import com.bookyourflight.models.User;
 import com.bookyourflight.repository.FlightRepository;
@@ -50,6 +51,12 @@ public class FlightPaymentService {
         flight.setPassengers(flight.getPassengers() + 1);
 
         flightRepository.save(flight);
+        userRepository.save(user);
+    }
+
+    public void addBalanceToUser(BalanceRequest balanceRequest) {
+        User user = userService.getAndValidateUser(balanceRequest.getUser().getName());
+        user.setBalance(user.getBalance().add(balanceRequest.getAmount()));
         userRepository.save(user);
     }
 }
