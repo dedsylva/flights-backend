@@ -1,11 +1,11 @@
 package com.bookyourflight.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -19,7 +19,10 @@ public class Flight {
     private String destination;
 
     private Date flightTime;
-    private Integer passengers;
+    private int passengers;
+    private int totalCapacity;
+    private Float price;
+    private BigDecimal profit;
 
     @ManyToOne
     @JoinColumn(name = "user_id")  // Foreign key to User table

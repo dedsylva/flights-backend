@@ -4,7 +4,6 @@ import com.bookyourflight.exception.InvalidFlightTimeException;
 import com.bookyourflight.exception.UserNotFoundException;
 import com.bookyourflight.models.Flight;
 import com.bookyourflight.repository.FlightRepository;
-import com.bookyourflight.repository.UserRepository;
 import com.bookyourflight.services.BookFlightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +17,10 @@ import java.util.List;
 public class FlightController {
 
     private final FlightRepository flightRepository;
-    private final UserRepository userRepository; // Inject UserRepository to update user data
     private final BookFlightService bookFlightService;
 
-    public FlightController(FlightRepository flightRepository, UserRepository userRepository, BookFlightService bookFlightService) {
+    public FlightController(FlightRepository flightRepository, BookFlightService bookFlightService) {
         this.flightRepository = flightRepository;
-        this.userRepository = userRepository;
         this.bookFlightService = bookFlightService;
     }
 

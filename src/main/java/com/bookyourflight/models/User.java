@@ -1,11 +1,10 @@
 package com.bookyourflight.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Setter
@@ -15,9 +14,10 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String name;
     private String email;
+    private BigDecimal balance;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  // One user can have many flights
     @JsonManagedReference
