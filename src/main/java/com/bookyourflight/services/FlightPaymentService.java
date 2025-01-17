@@ -7,9 +7,11 @@ import com.bookyourflight.models.Flight;
 import com.bookyourflight.models.User;
 import com.bookyourflight.repository.FlightRepository;
 import com.bookyourflight.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class FlightPaymentService {
 
     private final UserService userService;

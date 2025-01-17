@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1.0/payments")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PaymentController {
 
     private final FlightPaymentService flightPaymentService;
@@ -28,7 +29,6 @@ public class PaymentController {
         } catch (NotEnoughBalanceException | FlightWithFullCapacityException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
     }
 
     @PostMapping("/add")
@@ -39,7 +39,6 @@ public class PaymentController {
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
     }
 
 }

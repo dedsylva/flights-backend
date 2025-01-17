@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1.0/flights")
+@CrossOrigin(origins = "http://localhost:5173/flights")
 public class FlightController {
 
     private final FlightRepository flightRepository;

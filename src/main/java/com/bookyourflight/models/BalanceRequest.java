@@ -12,7 +12,4 @@ import java.math.BigDecimal;
 public class BalanceRequest {
     private User user;
     private BigDecimal amount;
-
-
-
 }

@@ -5,7 +5,7 @@ create table if not exists "user" (
     balance float not null
 );
 
-insert into "user" (name, email) values
+insert into "user" (name, email, balance) values
 ('Tadeu', 'dedsylva@gmail.com', 2500.5),
 ('John', 'john@gmail.com', 3500.0);
 
@@ -20,7 +20,7 @@ create table if not exists flight (
     profit float not null
 );
 
-insert into flight (source, destination, flight_time, passengers) values
+insert into flight (source, destination, flight_time, passengers, total_capacity, price, profit) values
  ('New York', 'Dubai', '2024-12-17', 0, 200, 1500.0, 0.0),
  ('Madrid', 'New York', '2024-10-22', 22, 200, 1100.0, 22*1100.0),
  ('Miami', 'Ibiza', '2024-11-11', 0, 200, 2500.0, 0.0),
