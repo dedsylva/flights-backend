@@ -3,12 +3,14 @@ package com.bookyourflight.controller;
 import com.bookyourflight.exception.InvalidFlightTimeException;
 import com.bookyourflight.exception.UserNotFoundException;
 import com.bookyourflight.models.Flight;
+import com.bookyourflight.models.HomeFlight;
 import com.bookyourflight.repository.FlightRepository;
 import com.bookyourflight.services.BookFlightService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,17 @@ public class FlightController {
     @GetMapping("")
     public List<Flight> getAvailableFlights() {
         return flightRepository.findAll();
+    }
+
+    @GetMapping("/home")
+    public List<HomeFlight> getAvailableHomeFlights() {
+        List <Flight> flightList = getAvailableFlights();
+        List<HomeFlight> homeFlightList = new ArrayList<>();
+
+        for (Flight flight : flightList) {
+            homeFlightList.add(new HomeFlight(flight));
+        }
+        return homeFlightList;
     }
 
     @GetMapping("/by-route")
