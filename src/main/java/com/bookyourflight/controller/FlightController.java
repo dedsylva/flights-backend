@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1.0/flights")
@@ -27,10 +28,27 @@ public class FlightController {
         this.bookFlightService = bookFlightService;
     }
 
-    @GetMapping("")
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getFlightById(@PathVariable("id") String id) {
+        Optional<Flight> optionalFlight = flightRepository.findById(id);
+
+        if (optionalFlight.isEmpty()) {
+            // Return an error response
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Flight not found with ID: " + id);
+        }
+
+        // If present, return the flight
+        Flight flight = optionalFlight.get();
+        return ResponseEntity.ok(flight);
+
+    }
+
+    @GetMapping("/")
     public List<Flight> getAvailableFlights() {
         return flightRepository.findAll();
     }
+
 
     @GetMapping("/home")
     public List<HomeFlight> getAvailableHomeFlights() {
