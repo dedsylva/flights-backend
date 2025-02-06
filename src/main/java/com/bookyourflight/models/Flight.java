@@ -21,6 +21,7 @@ public class Flight {
     private Date flightTime;
     private int passengers;
     private int totalCapacity;
+    private int passengersLeft;
     private Float price;
     private BigDecimal profit;
 

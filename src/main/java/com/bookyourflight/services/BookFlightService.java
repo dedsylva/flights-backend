@@ -24,14 +24,13 @@ public class BookFlightService {
         this.flightService = flightService;
     }
 
-    public void addFlight(@NotNull Flight flight) throws InvalidFlightTimeException, UserNotFoundException{
-        User user = userService.getAndValidateUser(flight.getUser().getName());
-        flightService.validateFlightTime(flight);
+    public void addFlight(@NotNull Flight flight, User user) throws InvalidFlightTimeException, UserNotFoundException{
+        Flight updatedFlight = flightService.validateAndUpdateFlight(flight);
 
-        flight.setUser(user);
-        user.getFlightList().add(flight);
+        updatedFlight.setUser(user);
+        user.getFlightList().add(updatedFlight);
 
-        flightRepository.save(flight);
+        flightRepository.save(updatedFlight);
         userRepository.save(user);
     }
 

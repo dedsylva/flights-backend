@@ -3,7 +3,7 @@ package com.bookyourflight.controller;
 import com.bookyourflight.exception.InvalidFlightTimeException;
 import com.bookyourflight.exception.UserNotFoundException;
 import com.bookyourflight.models.Flight;
-import com.bookyourflight.models.HomeFlight;
+import com.bookyourflight.models.User;
 import com.bookyourflight.repository.FlightRepository;
 import com.bookyourflight.services.BookFlightService;
 import org.springframework.http.HttpStatus;
@@ -49,18 +49,6 @@ public class FlightController {
         return flightRepository.findAll();
     }
 
-
-    @GetMapping("/home")
-    public List<HomeFlight> getAvailableHomeFlights() {
-        List <Flight> flightList = getAvailableFlights();
-        List<HomeFlight> homeFlightList = new ArrayList<>();
-
-        for (Flight flight : flightList) {
-            homeFlightList.add(new HomeFlight(flight));
-        }
-        return homeFlightList;
-    }
-
     @GetMapping("/by-route")
     public List<Flight> getFlightsBySourceAndDestination(@RequestParam String source, @RequestParam String destination) {
         return flightRepository.findBySourceAndDestination(source, destination);
@@ -76,10 +64,14 @@ public class FlightController {
         return flightRepository.findFlightsWithCapacity(maxCapacity);
     }
 
-    @PostMapping("")
-    public ResponseEntity<String> addFlight(@RequestBody Flight flight) {
+    @PostMapping("/add")
+    public ResponseEntity<String> addFlight(@RequestBody User user, @RequestParam Flight flight) {
+        if (flight == null) {
+            System.out.println("Null Flight!");
+            throw new NullPointerException("Null flight");
+        }
         try {
-            bookFlightService.addFlight(flight);
+            bookFlightService.addFlight(flight, user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Flight Added to " + flight.getUser().getName());
         } catch (InvalidFlightTimeException | UserNotFoundException e) {
