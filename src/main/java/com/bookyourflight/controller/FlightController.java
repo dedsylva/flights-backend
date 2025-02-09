@@ -6,14 +6,13 @@ import com.bookyourflight.models.Flight;
 import com.bookyourflight.models.User;
 import com.bookyourflight.repository.FlightRepository;
 import com.bookyourflight.services.BookFlightService;
+import com.bookyourflight.utils.ObjectMapperUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1.0/flights")
@@ -22,6 +21,7 @@ public class FlightController {
 
     private final FlightRepository flightRepository;
     private final BookFlightService bookFlightService;
+    private final ObjectMapper objectMapper = ObjectMapperUtils.getInstance();
 
     public FlightController(FlightRepository flightRepository, BookFlightService bookFlightService) {
         this.flightRepository = flightRepository;
@@ -65,7 +65,9 @@ public class FlightController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addFlight(@RequestBody User user, @RequestParam Flight flight) {
+    public ResponseEntity<String> addFlight(@RequestBody Map<String, Object> payload ) {
+            User user = objectMapper.convertValue(payload.get("user"), User.class);
+            Flight flight = objectMapper.convertValue(payload.get("flight"), Flight.class);
         if (flight == null) {
             System.out.println("Null Flight!");
             throw new NullPointerException("Null flight");

@@ -13,7 +13,8 @@ public class FlightService {
     public boolean isFlightAvailable(Flight flight) {
         // Verify that the time user tried to book a flight is earlier than flightTime
         Date currentDate = new Date();
-        return flight.getFlightTime().after(currentDate);
+        boolean isAvailable = flight.getFlightTime().after(currentDate);
+        return isAvailable;
     }
 
     public Flight validateAndUpdateFlight(Flight flight) {
