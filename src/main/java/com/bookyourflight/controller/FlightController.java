@@ -73,7 +73,7 @@ public class FlightController {
             throw new NullPointerException("Null flight");
         }
         try {
-            bookFlightService.addFlight(flight, user);
+            flight = bookFlightService.addFlight(flight, user);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Flight Added to " + flight.getUser().getName());
         } catch (InvalidFlightTimeException | UserNotFoundException e) {

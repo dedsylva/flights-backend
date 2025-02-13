@@ -22,8 +22,8 @@ create table if not exists flight (
 );
 
 insert into flight (source, destination, flight_time, passengers, total_capacity, passengers_left, price, profit) values
- ('New York', 'Dubai', '2024-12-17', 0, 200, 200, 1500.0, 0.0),
- ('Madrid', 'New York', '2024-10-22', 22, 200, 178, 1100.0, 22*1100.0),
- ('Miami', 'Ibiza', '2024-11-11', 0, 200, 200, 2500.0, 0.0),
- ('London', 'Munich', '2024-12-01', 15, 200, 185, 2700.0, 15*2700.0),
- ('Rome', 'Dubai', '2024-12-17', 0, 200, 200, 2300.0, 0.0);
+ ('New York', 'Dubai', '2025-12-17', 0, 200, 200, 1500.0, 0.0),
+ ('Madrid', 'New York', '2025-10-22', 22, 200, 178, 1100.0, 22*1100.0),
+ ('Miami', 'Ibiza', '2025-11-11', 0, 200, 200, 2500.0, 0.0),
+ ('London', 'Munich', '2025-12-01', 15, 200, 185, 2700.0, 15*2700.0),
+ ('Rome', 'Dubai', '2025-12-17', 0, 200, 200, 2300.0, 0.0);

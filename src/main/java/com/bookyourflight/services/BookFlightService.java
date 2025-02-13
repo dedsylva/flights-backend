@@ -9,6 +9,8 @@ import com.bookyourflight.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class BookFlightService {
 
@@ -24,14 +26,24 @@ public class BookFlightService {
         this.flightService = flightService;
     }
 
-    public void addFlight(@NotNull Flight flight, User user) throws InvalidFlightTimeException, UserNotFoundException{
+    public Flight addFlight(@NotNull Flight flight, User user) throws InvalidFlightTimeException, UserNotFoundException{
         Flight updatedFlight = flightService.validateAndUpdateFlight(flight);
 
+        updatedFlight = flightRepository.saveAndFlush(updatedFlight);
         updatedFlight.setUser(user);
-        user.getFlightList().add(updatedFlight);
+        if (user.getFlightList() == null) {
+            ArrayList<Flight> flightList = new ArrayList<>();
+            flightList.add(updatedFlight);
+            user.setFlightList(flightList);
+        } else {
+            user.getFlightList().add(updatedFlight);
+        }
+        user = userRepository.saveAndFlush(user);
 
-        flightRepository.save(updatedFlight);
         userRepository.save(user);
+        flightRepository.save(updatedFlight);
+
+        return updatedFlight;
     }
 
 
